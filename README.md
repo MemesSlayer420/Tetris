@@ -16,12 +16,16 @@ have rotateRight and rotateLeft in Shape class
     
     With any origin:
     
+    class Main {
+  public static void main(String[] args) {
     int[] origin = {2,1};
     int[] p1 = {7,11};
     
-    int[] c = {origin[0] - (p1[1] - origin[0]),p1[0]};
-    int[] cc = {p1[1], origin[1] - (p1[0] - origin[1])};
+    int[] c = {origin[0] - (p1[1] - origin[0]),p1[0] - origin[1]};
+    int[] cc = {p1[1] - origin[0], origin[1] - (p1[0] - origin[0])};
 
     //clockwise:
     System.out.println("Clockwise - x: " + c[0] + " y: " + c[1]);
     System.out.println("CounterClockwise - x: " + cc[0] + " y: " + cc[1]);
+  }
+}
