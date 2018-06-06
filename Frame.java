@@ -29,22 +29,23 @@ public class Frame extends JPanel {
 	int inc = 1;
 	
 	long t = 0;
-	int regInt = 300;
+	int regInt = 500;
 	int fastInt = 50;
 	int interval = regInt;
 	
 	boolean gameOver = false;
 	int lines = 0;
+	int level = 1;
 	//lines, points, level, level speed, down pressed speed
 	
-	private final Point[] L = {new Point(3,1),new Point(4,1),new Point(5,0),new Point(5,1)};
-	private final Point[] J = {new Point(3,1),new Point(4,1),new Point(5,1),new Point(3,0)};
+	private final Point[] L = {new Point(4,1),new Point(3,1),new Point(5,0),new Point(5,1)};
+	private final Point[] J = {new Point(4,1),new Point(3,1),new Point(5,1),new Point(3,0)};
 	private final Point[] O = {new Point(3,0),new Point(3,1),new Point(4,0),new Point(4,1)};
-	private final Point[] T = {new Point(3,1),new Point(4,0),new Point(5,1),new Point(4,1)};
-	private final Point[] S = {new Point(3,1),new Point(4,0),new Point(4,1),new Point(5,0)};
-	private final Point[] Z = {new Point(3,0),new Point(4,0),new Point(4,1),new Point(5,1)};
-	private final Point[] I = {new Point(3,0),new Point(4,0),new Point(5,0),new Point(6,0)};
-	private final Point[] C = {new Point(0,0),new Point(2,0),new Point(5,1),new Point(6,1),new Point(6,2),new Point(7,3)};
+	private final Point[] T = {new Point(4,1),new Point(4,0),new Point(5,1),new Point(3,1)};
+	private final Point[] S = {new Point(4,1),new Point(4,0),new Point(3,1),new Point(5,0)};
+	private final Point[] Z = {new Point(4,1),new Point(4,0),new Point(3,0),new Point(5,1)};
+	private final Point[] I = {new Point(4,0),new Point(3,0),new Point(5,0),new Point(6,0)};
+	private final Point[] C = {new Point(5,0)};
 	
 	public Frame(int widthIn, int heightIn) { //runs once at the beginning
 
@@ -55,7 +56,7 @@ public class Frame extends JPanel {
 		shapes.add(S);
 		shapes.add(Z);
 		shapes.add(I);
-		//shapes.add(C);
+		shapes.add(C);
 		/*
 		colors.add(Shape.L_COLOR);
 		colors.add(Shape.J_COLOR);
@@ -73,6 +74,7 @@ public class Frame extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) { //when mouse is pressed
 				System.out.println("Press at " + e.getX() + "-" + e.getY());
+				miscShape.translateY(-1);
 			}
 			
 			@Override
@@ -103,14 +105,17 @@ public class Frame extends JPanel {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				//System.out.println("Key Pressed: " + e.getKeyChar() + " Key Code: " + e.getKeyCode());
+				System.out.println("Key Pressed: " + e.getKeyChar() + " Key Code: " + e.getKeyCode());
 				//space is teleport down
 				if(e.getKeyCode() == 40) interval = fastInt;
-				else if(e.getKeyCode() == 37) {
+				if(e.getKeyCode() == 37) {
 					if(miscShape.canMoveLeft()) miscShape.translateX(-1);
 				}
-				else if(e.getKeyCode() == 39) {
+				if(e.getKeyCode() == 39) {
 					if(miscShape.canMoveRight()) miscShape.translateX(1);
+				}
+				if(e.getKeyCode() == 38) {
+					miscShape.rotateRightIfCan();
 				}
 				
 			}
@@ -141,7 +146,13 @@ public class Frame extends JPanel {
 				addShapeToBoard(miscShape);
 				int tempLine = lines;
 				lines += removeRows();
-				if(lines != tempLine) System.out.println(lines + " Lines");
+				if(lines != tempLine) {
+					level = lines/10 + 1;
+					regInt = (int) (500*Math.pow(0.9, lines));
+							;
+					System.out.println(lines + " Lines");
+				}
+				
 				
 				int rand = (int)(Math.random() * shapes.size());
 				miscShape = new Shape(shapes.get(rand), Shape.COLORS[rand]);
@@ -159,6 +170,8 @@ public class Frame extends JPanel {
 		drawShape(G, miscShape);
 		
 		G.drawString("Lines: " + lines, 500, 200);
+		G.drawString("Level: " + (lines/10 + 1), 500, 250);
+		
 	}
 	
 	public void drawBoard(Graphics G) {

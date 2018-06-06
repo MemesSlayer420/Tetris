@@ -15,7 +15,7 @@ public class Main {
         frame.add(f); //add the content of the game object to the window
         frame.setVisible(true);
         
-        long interval = (long)50 * 1000000; //change
+        long interval = (long)10 * 1000000 * 0; //change
         long t = 0;
         while(true) {
         	if(System.nanoTime() - t >= interval) { //repaints at a certain fps

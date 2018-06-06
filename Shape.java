@@ -22,7 +22,7 @@ public class Shape {
 	private final Point[] T = {new Point(3,1),new Point(4,0),new Point(5,1),new Point(4,1)};
 	private final Point[] S = {new Point(3,1),new Point(4,0),new Point(4,1),new Point(5,0)};
 	private final Point[] Z = {new Point(3,0),new Point(4,0),new Point(4,1),new Point(5,1)};
-	private final Point[] I = {new Point(3,0),new Point(4,0),new Point(5,0),new Point(6,0)};
+	private final Point[] I = {new Point(4,0),new Point(3,0),new Point(5,0),new Point(6,0)};
 
 	private final Point[][] SHAPES = {L,J,O,T,S,Z,I};
 	final static Color[] COLORS = {L_COLOR,J_COLOR,O_COLOR,T_COLOR,S_COLOR,Z_COLOR,I_COLOR,C_COLOR};
@@ -76,5 +76,26 @@ public class Shape {
 			if(Frame.board[thisShape[i].x + 1][thisShape[i].y]) return false;
 		}
 		return true;
+	}
+
+	public void rotateRightIfCan() {
+		boolean can = true;
+		Point[] rotated = new Point[thisShape.length];
+		int[] origin = {thisShape[0].x, thisShape[0].y};
+		
+		for(int i = 0; i < thisShape.length; i++) {
+			rotated[i] = new Point(origin[0] - (thisShape[i].y - origin[1]),origin[1] + (thisShape[i].x - origin[0]));
+			if(Frame.board[rotated[i].x][rotated[i].y]) {
+				return;
+			}
+		}
+		for(int i = 0; i < rotated.length; i++) {
+			thisShape[i].x = rotated[i].x;
+			thisShape[i].y = rotated[i].y;
+		}
+	}
+	
+	public void rotateLeftIfCan() {
+
 	}
 }
