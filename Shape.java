@@ -16,15 +16,16 @@ public class Shape {
 
 
 	//define each piece
-	private final Point[] L = {new Point(3,1),new Point(4,1),new Point(5,0),new Point(5,1)};
-	private final Point[] J = {new Point(3,1),new Point(4,1),new Point(5,1),new Point(3,0)};
-	private final Point[] O = {new Point(3,0),new Point(3,1),new Point(4,0),new Point(4,1)};
-	private final Point[] T = {new Point(3,1),new Point(4,0),new Point(5,1),new Point(4,1)};
-	private final Point[] S = {new Point(3,1),new Point(4,0),new Point(4,1),new Point(5,0)};
-	private final Point[] Z = {new Point(3,0),new Point(4,0),new Point(4,1),new Point(5,1)};
-	private final Point[] I = {new Point(4,0),new Point(3,0),new Point(5,0),new Point(6,0)};
+	private static final Point[] L = {new Point(4,1),new Point(3,1),new Point(5,0),new Point(5,1)};
+	private static final Point[] J = {new Point(4,1),new Point(3,1),new Point(5,1),new Point(3,0)};
+	private static final Point[] O = {new Point(3,0),new Point(3,1),new Point(4,0),new Point(4,1)};
+	private static final Point[] T = {new Point(4,1),new Point(4,0),new Point(5,1),new Point(3,1)};
+	private static final Point[] S = {new Point(4,1),new Point(4,0),new Point(3,1),new Point(5,0)};
+	private static final Point[] Z = {new Point(4,1),new Point(4,0),new Point(3,0),new Point(5,1)};
+	private static final Point[] I = {new Point(4,0),new Point(3,0),new Point(5,0),new Point(6,0)};
+	private static final Point[] C = {new Point(5,0)};
 
-	private final Point[][] SHAPES = {L,J,O,T,S,Z,I};
+	public static final Point[][] SHAPES = {L,J,O,T,S,Z,I};
 	final static Color[] COLORS = {L_COLOR,J_COLOR,O_COLOR,T_COLOR,S_COLOR,Z_COLOR,I_COLOR,C_COLOR};
 
 	public Point[] thisShape;

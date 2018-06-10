@@ -18,9 +18,6 @@ public class Frame extends JPanel {
 	public static boolean[][] board = new boolean[boardWidth][boardHeight];
 	public static Color[][] boardColor = new Color[boardWidth][boardHeight];
 	
-	final ArrayList<Point[]> shapes = new ArrayList<Point[]>(); //for easy randomization
-	//final ArrayList<Color> colors = new ArrayList<Color>(); //for easy randomization
-	
 	final int startDelay = 500, downDelay = 100;
 	
 	int delay = startDelay;
@@ -38,36 +35,9 @@ public class Frame extends JPanel {
 	int level = 1;
 	//lines, points, level, level speed, down pressed speed
 	
-	private final Point[] L = {new Point(4,1),new Point(3,1),new Point(5,0),new Point(5,1)};
-	private final Point[] J = {new Point(4,1),new Point(3,1),new Point(5,1),new Point(3,0)};
-	private final Point[] O = {new Point(3,0),new Point(3,1),new Point(4,0),new Point(4,1)};
-	private final Point[] T = {new Point(4,1),new Point(4,0),new Point(5,1),new Point(3,1)};
-	private final Point[] S = {new Point(4,1),new Point(4,0),new Point(3,1),new Point(5,0)};
-	private final Point[] Z = {new Point(4,1),new Point(4,0),new Point(3,0),new Point(5,1)};
-	private final Point[] I = {new Point(4,0),new Point(3,0),new Point(5,0),new Point(6,0)};
-	private final Point[] C = {new Point(5,0)};
 	
 	public Frame(int widthIn, int heightIn) { //runs once at the beginning
-
-		shapes.add(L);
-		shapes.add(J);
-		shapes.add(O);
-		shapes.add(T);
-		shapes.add(S);
-		shapes.add(Z);
-		shapes.add(I);
-		shapes.add(C);
-		/*
-		colors.add(Shape.L_COLOR);
-		colors.add(Shape.J_COLOR);
-		colors.add(Shape.O_COLOR);
-		colors.add(Shape.T_COLOR);
-		colors.add(Shape.S_COLOR);
-		colors.add(Shape.Z_COLOR);
-		colors.add(Shape.I_COLOR);
-		*/
-		
-		miscShape = new Shape(shapes.get(0), Shape.COLORS[0]);
+		miscShape = new Shape(Shape.SHAPES[0], Shape.COLORS[0]);
 		
 		addMouseListener(new MouseAdapter() {
 			
@@ -153,9 +123,8 @@ public class Frame extends JPanel {
 					System.out.println(lines + " Lines");
 				}
 				
-				
-				int rand = (int)(Math.random() * shapes.size());
-				miscShape = new Shape(shapes.get(rand), Shape.COLORS[rand]);
+				int rand = (int)(Math.random() * Shape.SHAPES.length);
+				miscShape = new Shape(Shape.SHAPES[rand], Shape.COLORS[rand]);
 				for(Point p : miscShape.thisShape) {
 					if(board[p.x][p.y] && !gameOver) {
 						System.out.println("GAMEOVER");
@@ -165,7 +134,6 @@ public class Frame extends JPanel {
 			}
 		}
 		
-		//draw grid
 		drawBoard(G);
 		drawShape(G, miscShape);
 		
